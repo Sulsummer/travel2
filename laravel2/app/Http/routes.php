@@ -19,3 +19,12 @@ Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
+
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function(){
+	Route::get('/','AdminHomeController@index');
+});
+
+Route::group(['prefix' => 'note', 'namespace' => 'Note'], function(){
+	Route::get('/','NoteHomeController@index');
+	Route::get('viewnote/{id}','NoteHomeController@show');
+});
