@@ -28,3 +28,5 @@ Route::group(['prefix' => 'note', 'namespace' => 'Note'], function(){
 	Route::get('/','NoteHomeController@index');
 	Route::get('viewnote/{id}','NoteHomeController@show');
 });
+
+Route::post('notecomment/store','CommentController@storeNoteComment');

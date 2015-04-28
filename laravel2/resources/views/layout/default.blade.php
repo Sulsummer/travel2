@@ -15,7 +15,7 @@
 
   <div class="container" style="margin-top: 20px;">
     <div id="title" style="text-align: center;">
-      <h1>Travel</h1>
+      <a href="/"><h1>Travel</h1></a>
       <div style="padding: 5px; font-size: 16px;">Travl Test</div>
     </div>
  
