@@ -20,6 +20,16 @@
     	</p>
   	</div>
 </div>
+
+<div class="modify">
+	<a href="{{ URL('note/handle/'.$note->id.'/edit') }}"><button class="btn btn-lg btn-success">Modify</button></a>
+	<form action="{{ URL('note/handle/'.$note->id) }}" method="post" style="display:inline">
+		<input type="hidden" name="_method" value="delete">
+		<input type="hidden" name="_token" value="{{ csrf_token() }}">
+		<button type="submit" class="btn btn-lg btn-danger">Delete</button>
+	</form>
+</div>
+
 <div class="comment">
 
 	@if (count($errors) > 0)

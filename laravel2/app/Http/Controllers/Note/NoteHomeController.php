@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Note;
+use Redirect,Input,Auth;
 
 class NoteHomeController extends Controller {
 
@@ -26,7 +27,7 @@ class NoteHomeController extends Controller {
 	 */
 	public function create()
 	{
-		//
+		return view('note.handle.create');
 	}
 
 	/**
@@ -34,9 +35,23 @@ class NoteHomeController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(Request $request)
 	{
-		//
+		$this->validate($request,[
+			'noteTitle' => 'required|max:255',
+			'noteContent' => 'required']);
+
+		$note = new Note;
+		$note->noteTitle = Input::get('noteTitle');
+		$note->authorId = Input::get('authorId');
+		$note->noteContent = Input::get('noteContent');
+
+		if($note->save()){
+			return Redirect::to('note');
+		}
+		else{
+			return Redirect::back()->withInput->withErrors("Failed to create!");
+		}
 	}
 
 	/**
@@ -58,7 +73,7 @@ class NoteHomeController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		return view('note.handle.edit')->withNote(Note::find($id));
 	}
 
 	/**
@@ -67,9 +82,23 @@ class NoteHomeController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(Request $request,$id)
 	{
-		//
+		$this->validate($request,[
+			'noteTitle' => 'required|max:255',
+			'noteContent' => 'required']);
+
+		$note = Note::find($id);
+		$note->noteTitle = Input::get('noteTitle');
+		$note->authorId = Input::get('authorId');
+		$note->noteContent = Input::get('noteContent');
+
+		if($note->save()){
+			return Redirect::to('note');
+		}
+		else{
+			return Redirect::back()->withInput->withErrors("Failed to update!");
+		}
 	}
 
 	/**
@@ -80,7 +109,10 @@ class NoteHomeController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		$note = Note::find($id);
+		$note->delete();
+		return Redirect::to('note');
+
 	}
 
 }

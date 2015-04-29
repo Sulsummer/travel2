@@ -27,6 +27,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function(){
 Route::group(['prefix' => 'note', 'namespace' => 'Note'], function(){
 	Route::get('/','NoteHomeController@index');
 	Route::get('viewnote/{id}','NoteHomeController@show');
+	Route::resource('handle','NoteHomeController',['only' => ['create','store','update','destroy','edit']]);
 });
 
 Route::post('notecomment/store','CommentController@storeNoteComment');
