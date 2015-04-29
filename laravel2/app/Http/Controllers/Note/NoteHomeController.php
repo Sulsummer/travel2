@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Note;
-use Redirect,Input,Auth;
+use Redirect,Input,Auth,DB;
 
 class NoteHomeController extends Controller {
 
@@ -37,13 +37,14 @@ class NoteHomeController extends Controller {
 	 */
 	public function store(Request $request)
 	{
+		$user = Auth::user();
 		$this->validate($request,[
 			'noteTitle' => 'required|max:255',
 			'noteContent' => 'required']);
 
 		$note = new Note;
 		$note->noteTitle = Input::get('noteTitle');
-		$note->authorId = Input::get('authorId');
+		$note->authorId = $user->id;
 		$note->noteContent = Input::get('noteContent');
 
 		if($note->save()){
@@ -62,7 +63,11 @@ class NoteHomeController extends Controller {
 	 */
 	public function show($id)
 	{
-		return view('note.viewnote')->withNote(Note::find($id));
+		$note = Note::find($id);
+		$authorId = $note->authorId;
+		$author = DB::table('users')->where('id',$authorId)->get();
+		$data = array('note' => $note, 'author' => $author);
+		return view('note.viewnote',$data);//->withNote($note)->withAuthor($author);
 	}
 
 	/**
@@ -90,7 +95,6 @@ class NoteHomeController extends Controller {
 
 		$note = Note::find($id);
 		$note->noteTitle = Input::get('noteTitle');
-		$note->authorId = Input::get('authorId');
 		$note->noteContent = Input::get('noteContent');
 
 		if($note->save()){

@@ -10,10 +10,6 @@
 			<input type="text" class="form-control" name="noteTitle" value="{{ $note->noteTitle}}">
 		</div>
 		<div class="form-group">
-			<label>UserId:</label>
-			<input type="text" class="form-control" name="authorId" value="{{ $note->authorId }}">
-		</div>
-		<div class="form-group">
 			<label>Content:</label>
 			<textarea class="form-control" required="required" rows="40" name="noteContent">{{ $note->noteContent }}</textarea>
 		</div>

@@ -13,6 +13,11 @@
   	<div id="date" style="text-align: right;">
     	{{ $note->date }}
   	</div>
+  	<div id="userName" style="text-align: right;">
+    	@foreach ($author as $a)
+    		{{ var_dump($a) }}
+    	@endForeach
+  	</div>
   
   	<div id="content" style="padding: 50px;">
    		<p>

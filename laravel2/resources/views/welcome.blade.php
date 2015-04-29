@@ -1,27 +1,6 @@
 @extends('layout.default')
 
 @section('content')
-
-<div class="row">
-	<div class="col-md-4">
-	</div>	
-	@if (Auth::user())
-	<div class="col-md-4">
- 		<div class="panel panel-default">
-  			<div class="panel-body">
-  				
-  				<p>{{ $user->id }}</p>
-  				<a href="{{ URL('auth/logout') }}">logout</a>
-
-  			</div>
-		</div>
- 	</div>
- 	@endIf
-
- 	<div class="col-md-4">
- 	</div>
-</div>
-
 <div class="row">
 	<div class="col-md-3">
 	</div>	

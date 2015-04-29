@@ -22,6 +22,28 @@
  
     <hr>
 
+    <div class="row">
+      <div class="col-md-4">
+      </div>  
+      @if ($user = Auth::user())
+      <div class="col-md-4">
+        <div class="panel panel-default">
+          <div class="panel-body">
+          
+            <p>{{ $user->id }}</p>
+            <p>{{ $user->nickName }}</p>
+            <p>{{ $user->email }}</p>
+            <a href="{{ URL('auth/logout') }}">logout</a>
+
+          </div>
+      </div>
+    </div>
+  @endIf
+
+  <div class="col-md-4">
+  </div>
+</div>
+
     @yield('content')
     
     <div id="footer" style="text-align: center; border-top: dashed 3px #eeeeee; margin: 50px 0; padding: 20px;">

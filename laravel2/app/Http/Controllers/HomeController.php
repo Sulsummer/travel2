@@ -32,9 +32,6 @@ class HomeController extends Controller {
 	 */
 	public function index()
 	{
-		if(Auth::user()){
-			return view('welcome')->withUser(Auth::user());
-		}
 		return view('welcome');
 	}
 
