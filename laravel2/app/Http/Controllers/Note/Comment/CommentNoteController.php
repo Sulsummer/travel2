@@ -1,4 +1,4 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Note\Comment;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -7,8 +7,9 @@ use Illuminate\Http\Request;
 
 use App\CommentNote;
 
-use Redirect,Input;
-class CommentController extends Controller {
+use Redirect,Input,Auth;
+
+class CommentNoteController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
@@ -39,9 +40,15 @@ class CommentController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function storeNoteComment()
+	public function store(Request $request)
 	{
-		if(CommentNote::create(Input::all())){
+	
+		$commentNote = new CommentNote;
+		$commentNote->noteId = $request->input('noteId');
+		$commentNote->refId = $request->input('refId');
+		$commentNote->userId = Auth::user()->id;
+		$commentNote->comment= $request->input('comment');
+		if($commentNote->save()){
 			return Redirect::back();
 		}
 		else{

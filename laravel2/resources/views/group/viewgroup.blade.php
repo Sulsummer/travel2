@@ -1,34 +1,39 @@
 @extends ('layout.default')
 
 @section ('content')
-<div class="note">
+<div class="group">
 	<h4>
-    	<a href="{{ URL('note') }}">⬅️Before</a>
+    	<a href="{{ URL('group') }}">⬅️Before</a>
   	</h4>
   	
-  	<h1 style="text-align: center; margin-top: 50px;">{{ $note->noteTitle }}</h1>
+  	<h1 style="text-align: center; margin-top: 50px;">{{ $group->groupName }}</h1>
   		
   	<hr>
   	
   	<div id="date" style="text-align: right;">
-    	{{ $note->date }}
+    	{{ $group->date }}
   	</div>
   	<div id="userName" style="text-align: right;">
-    	@foreach ($author as $a)
-    		{{ var_dump($a) }}
+    	@foreach ($captain as $c)
+    		{{ var_dump($c) }}
     	@endForeach
   	</div>
   
   	<div id="content" style="padding: 50px;">
-   		<p>
-      		{{ $note->noteContent }}
-    	</p>
+   		<p>Group Id: {{ $group->id }}</p>
+   		<p>Group Name: {{ $group->groupName }}</p>
+   		<p>Group Captain: {{ $group->captainId }}</p>
+   		<p>Group Set Date: {{ $group->date }}</p>
+   		<p>Group Start Date: {{ $group->startDate }}</p>
+   		<p>Group End Date: {{ $group->endDate }}</p>
+   		<p>Group Popularity: {{ $group->popularity }}</p>
+   		<p>Group Destination: {{ $group->destination }}</p>
   	</div>
 </div>
 
 <div class="modify">
-	<a href="{{ URL('note/handle/'.$note->id.'/edit') }}"><button class="btn btn-lg btn-success">Modify</button></a>
-	<form action="{{ URL('note/handle/'.$note->id) }}" method="post" style="display:inline">
+	<a href="{{ URL('group/handle/'.$group->id.'/edit') }}"><button class="btn btn-lg btn-success">Modify</button></a>
+	<form action="{{ URL('group/handle/'.$group->id) }}" method="post" style="display:inline">
 		<input type="hidden" name="_method" value="delete">
 		<input type="hidden" name="_token" value="{{ csrf_token() }}">
 		<button type="submit" class="btn btn-lg btn-danger">Delete</button>
@@ -53,9 +58,9 @@
 	<div class="newComment">
 		<h4>Your Comment:</h4>
 		
-		<form method="post" id="newComment" action="{{ URL('note/notecomment') }}">
+		<form method="post" id="newComment" action="{{ URL('group/groupcomment') }}">
 			<input type="hidden" name="_token" value="{{ csrf_token() }}">
-        	<input type="hidden" name="noteId" value="{{ $note->id }}">
+        	<input type="hidden" name="groupId" value="{{ $group->id }}">
 
         	<div class="form-group">
         		<label>Comment:</label>
@@ -68,7 +73,7 @@
 	<hr>
 
 	<div class="oldComment">
-		@foreach ($note->comment as $comment)
+		@foreach ($group->comment as $comment)
 		<div class="oneComment">
 			<div class="one" style="border-top: solid 3px #efefef; padding: 5px 20px;">
 				<h3>{{ $comment->userId }}</h3>
@@ -112,15 +117,15 @@ function reply(id, userId){
 	var newDiv = document.createElement("div");
 	var newForm = document.createElement("form");
 	newForm.setAttribute("method","post");
-	newForm.setAttribute("action","{{ URL('note/notecomment') }}");
+	newForm.setAttribute("action","{{ URL('group/groupcomment') }}");
 	var hiddenInput1 = document.createElement("input");
 	hiddenInput1.setAttribute("type","hidden");
 	hiddenInput1.setAttribute("name","_token");
 	hiddenInput1.setAttribute("value","{{ csrf_token() }}");
 	var hiddenInput2 = document.createElement("input");
 	hiddenInput2.setAttribute("type","hidden");
-	hiddenInput2.setAttribute("name","noteId");
-	hiddenInput2.setAttribute("value","{{ $note->id }}");
+	hiddenInput2.setAttribute("name","groupId");
+	hiddenInput2.setAttribute("value","{{ $group->id }}");
 	var hiddenInput3 = document.createElement("input");
 	hiddenInput3.setAttribute("type","hidden");
 	hiddenInput3.setAttribute("name","refId");

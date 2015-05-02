@@ -27,7 +27,30 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function(){
 Route::group(['prefix' => 'note', 'namespace' => 'Note'], function(){
 	Route::get('/','NoteHomeController@index');
 	Route::get('viewnote/{id}','NoteHomeController@show');
+	Route::group(['namespace' => 'Comment'],function(){
+		Route::resource('notecomment','CommentNoteController');	
+	});
+	
 	Route::resource('handle','NoteHomeController',['only' => ['create','store','update','destroy','edit']]);
 });
 
-Route::post('notecomment/store','CommentController@storeNoteComment');
+
+Route::group(['prefix' => 'group','namespace' => 'Group'],function(){
+	Route::get('/','GroupHomeController@index');
+	Route::get('viewgroup/{id}','GroupHomeController@show');
+	Route::group(['namespace' => 'Comment'],function(){
+		Route::resource('groupcomment','CommentGroupController');
+	});
+	Route::resource('handle','GroupHomeController');
+});
+
+
+
+
+
+
+
+
+
+
+

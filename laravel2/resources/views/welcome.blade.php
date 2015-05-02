@@ -38,7 +38,7 @@
  	<div class="col-md-6">
  		<div class="panel panel-default">
   			<div class="panel-body">
-    			Travel Group
+    			<a href="{{ URL('group') }}">Travel Group</a>
   			</div>
 		</div>
  	</div>

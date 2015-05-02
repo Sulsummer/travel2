@@ -6,10 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Note;
-use Redirect,Input,Auth,DB;
+use Redirect,Input,Auth,DB,Response;
 
 class NoteHomeController extends Controller {
-
+	
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -63,11 +63,10 @@ class NoteHomeController extends Controller {
 	 */
 	public function show($id)
 	{
-		$note = Note::find($id);
-		$authorId = $note->authorId;
+		$authorId = Note::find($id)->authorId;
 		$author = DB::table('users')->where('id',$authorId)->get();
-		$data = array('note' => $note, 'author' => $author);
-		return view('note.viewnote',$data);//->withNote($note)->withAuthor($author);
+		//$data = array('note' => $note, 'author' => $author);
+		return view('note.viewnote')->withNote(Note::find($id))->withAuthor($author);
 	}
 
 	/**
@@ -117,6 +116,11 @@ class NoteHomeController extends Controller {
 		$note->delete();
 		return Redirect::to('note');
 
+	}
+
+	public function chechAuth(){
+		if(Auth::user())
+			return new Response(true);
 	}
 
 }
