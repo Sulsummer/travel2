@@ -9,7 +9,7 @@ use App\Note;
 use Redirect,Input,Auth,DB,Response;
 
 class NoteHomeController extends Controller {
-	
+
 	/**
 	 * Display a listing of the resource.
 	 *

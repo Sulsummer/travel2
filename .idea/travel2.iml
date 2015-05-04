@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/laravel2/vendor/phpspec/phpspec/features/bootstrap" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel2/vendor/phpspec/phpspec/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel2/vendor/jeremeamia/SuperClosure/src" isTestSource="false" packagePrefix="SuperClosure" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel2/vendor/phpspec/prophecy/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel2/vendor/nikic/php-parser/lib" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel2/vendor/nesbot/carbon/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel2" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel2/vendor/jakub-onderka/php-console-color/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel2/vendor/jakub-onderka/php-console-highlighter/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel2/vendor/doctrine/inflector/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel2/vendor/doctrine/inflector/lib" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel2/vendor/doctrine/instantiator/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel2/vendor/laravel/framework/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel2/vendor/psy/psysh/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel2/vendor/psy/psysh/test" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel2/vendor/phpspec/phpspec" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel2/vendor/phpspec/prophecy" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel2/vendor/symfony/console" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel2/vendor/symfony/finder" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel2/vendor/symfony/routing" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel2/vendor/symfony/yaml" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel2/vendor/symfony/http-kernel" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel2/vendor/symfony/translation" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel2/vendor/symfony/http-foundation" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel2/vendor/symfony/security-core" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel2/vendor/symfony/var-dumper" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel2/vendor/symfony/filesystem" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel2/vendor/symfony/process" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel2/vendor/symfony/debug" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel2/vendor/symfony/event-dispatcher" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel2/vendor/psr/log" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel2/vendor/monolog/monolog/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel2/vendor/monolog/monolog/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel2/vendor/phpdocumentor/reflection-docblock/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel2/vendor/phpdocumentor/reflection-docblock/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel2/vendor/classpreloader/classpreloader/src" isTestSource="false" packagePrefix="ClassPreloader" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel2/vendor/doctrine/instantiator/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel2/vendor/mtdowling/cron-expression/src" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
+

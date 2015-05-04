@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
+//Route::get('home', 'WelcomeController@index');
 
-Route::get('home', 'HomeController@index');
+Route::get('/', 'HomeController@index');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
@@ -27,21 +27,28 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function(){
 Route::group(['prefix' => 'note', 'namespace' => 'Note'], function(){
 	Route::get('/','NoteHomeController@index');
 	Route::get('viewnote/{id}','NoteHomeController@show');
-	Route::group(['namespace' => 'Comment'],function(){
-		Route::resource('notecomment','CommentNoteController');	
+	Route::resource('handle','NoteHomeController');
+	Route::group(['middleware' => 'auth', 'namespace' => 'Comment'],function(){
+		Route::resource('notecomment','CommentNoteController');
+
+
 	});
-	
-	Route::resource('handle','NoteHomeController',['only' => ['create','store','update','destroy','edit']]);
+
 });
 
 
 Route::group(['prefix' => 'group','namespace' => 'Group'],function(){
 	Route::get('/','GroupHomeController@index');
 	Route::get('viewgroup/{id}','GroupHomeController@show');
-	Route::group(['namespace' => 'Comment'],function(){
+	Route::resource('handle','GroupHomeController');
+	Route::group(['middleware' => 'auth', 'namespace' => 'Comment'],function(){
 		Route::resource('groupcomment','CommentGroupController');
 	});
-	Route::resource('handle','GroupHomeController');
+});
+
+Route::group(['prefix' => 'user','namespace' => 'User'], function(){
+	Route::get('/','UserHomeController@index');
+	Route::get('viewuser/{id}','UserHomeController@show');
 });
 
 

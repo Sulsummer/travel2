@@ -17,6 +17,7 @@
     	@foreach ($author as $a)
     		{{ var_dump($a) }}
     	@endForeach
+    	<a href="{{ URL('user/viewuser/'.$author[0]->id) }}">{{ $author[0]->nickName }}</a> 	
   	</div>
   
   	<div id="content" style="padding: 50px;">

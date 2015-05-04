@@ -41,6 +41,7 @@ class GroupHomeController extends Controller {
 	{
 		$this->validate($request,[
 			'groupName' => 'required|max:50']);
+		
 		$group = new Group;
 		$group->groupName = $request->input('groupName');
 		$group->captainId = Auth::user()->id;

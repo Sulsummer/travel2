@@ -31,7 +31,7 @@
           <div class="panel-body">
           
             <p>{{ $user->id }}</p>
-            <p>{{ $user->nickName }}</p>
+            <p><a href="{{ URL('user') }}">{{ $user->nickName }}</a></p>
             <p>{{ $user->email }}</p>
             <a href="{{ URL('auth/logout') }}">logout</a>
 

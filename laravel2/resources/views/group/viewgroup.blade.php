@@ -14,10 +14,11 @@
     	{{ $group->date }}
   	</div>
   	<div id="userName" style="text-align: right;">
-    	@foreach ($captain as $c)
+		@foreach ($captain as $c)
     		{{ var_dump($c) }}
-    	@endForeach
-  	</div>
+    	@endForeach 
+    	<a href="{{ URL('user/viewuser/'.$captain[0]->id) }}">{{ $captain[0]->nickName }}</a> 	
+    </div>
   
   	<div id="content" style="padding: 50px;">
    		<p>Group Id: {{ $group->id }}</p>
@@ -96,20 +97,6 @@
 @endSection
 
 <script type="text/javascript">
-function checkAuth(){
-	var xmlhttp = new XMLHttpRequest();
-	xmlhttp.open("get","note/checkAuth",true);
-	xmlhttp.send();
-	xmlhttp.onreadystatechange = function(){
-		if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
-			if(!xmlhttp.responseText)
-				//document.getElementById("newComment").setAttribute("action","{{ URL('note/notecomment') }}")
-    			alert("no");
-    	}
-	}
-
-		
-}
 
 function reply(id, userId){
 	var replyDiv = document.getElementById("reply" + id);	

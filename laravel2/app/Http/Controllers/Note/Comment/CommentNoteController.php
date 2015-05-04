@@ -4,10 +4,10 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
-
 use App\CommentNote;
 
-use Redirect,Input,Auth;
+
+use Redirect,Input,Auth,Session;
 
 class CommentNoteController extends Controller {
 
@@ -42,7 +42,7 @@ class CommentNoteController extends Controller {
 	 */
 	public function store(Request $request)
 	{
-	
+		return $request;
 		$commentNote = new CommentNote;
 		$commentNote->noteId = $request->input('noteId');
 		$commentNote->refId = $request->input('refId');
