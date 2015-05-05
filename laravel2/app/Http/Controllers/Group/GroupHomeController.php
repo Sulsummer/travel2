@@ -68,9 +68,15 @@ class GroupHomeController extends Controller {
 	 */
 	public function show($id)
 	{
+		$isSelf = false;
 		$captainId = Group::find($id)->captainId;
+		if(Auth::user()->id == $captainId){
+			$isSelf = true;
+		}
 		$captain = DB::table('users')->where('id',$captainId)->get();
-		return view('group.viewgroup')->withGroup(Group::find($id))->withCaptain($captain);
+		return view('group.viewgroup')->withGroup(Group::find($id))
+									  ->withCaptain($captain)
+									  ->with('isSelf',$isSelf);
 	}
 
 	/**
@@ -103,7 +109,8 @@ class GroupHomeController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		Group::find($id)->delete();
+		return Redirect::to('group');		
 	}
 
 	/**

@@ -64,10 +64,16 @@ class NoteHomeController extends Controller {
 	 */
 	public function show($id)
 	{
+		$isSelf = false;
 		$authorId = Note::find($id)->authorId;
+		if(Auth::user()->id == $authorId){
+			$isSelf = true;
+		}	
 		$author = DB::table('users')->where('id',$authorId)->get();
 		//$data = array('note' => $note, 'author' => $author);
-		return view('note.viewnote')->withNote(Note::find($id))->withAuthor($author);
+		return view('note.viewnote')->withNote(Note::find($id))
+									->withAuthor($author)
+									->with('isSelf',$isSelf);
 	}
 
 	/**
@@ -113,8 +119,7 @@ class NoteHomeController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		$note = Note::find($id);
-		$note->delete();
+		Note::find($id)->delete();
 		return Redirect::to('note');
 
 	}

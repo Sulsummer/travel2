@@ -28,13 +28,17 @@
 </div>
 
 <div class="modify">
+	@if ($isSelf)
 	<a href="{{ URL('note/handle/'.$note->id.'/edit') }}"><button class="btn btn-lg btn-success">Modify</button></a>
 	<form action="{{ URL('note/handle/'.$note->id) }}" method="post" style="display:inline">
 		<input type="hidden" name="_method" value="delete">
 		<input type="hidden" name="_token" value="{{ csrf_token() }}">
 		<button type="submit" class="btn btn-lg btn-danger">Delete</button>
 	</form>
+	@else
+
 	<a href="{{ URL('note/viewnote/'.$note->id.'/praise') }}"><button class="btn btn-lg btn-success">Praise</button></a>
+	@endIf
 </div>
 
 <div class="comment">
