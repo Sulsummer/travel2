@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Note;
+use App\Http\Controllers\Praise\PraiseController;
 use Redirect,Input,Auth,DB,Response;
 
 class NoteHomeController extends Controller {
@@ -118,9 +119,17 @@ class NoteHomeController extends Controller {
 
 	}
 
-	public function chechAuth(){
-		if(Auth::user())
-			return new Response(true);
+	/**
+	 * Praise one note.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function praise($id){
+		PraiseController::praise('Note',$id);
+		return Redirect::back();
 	}
+
+
 
 }

@@ -9,7 +9,10 @@ use Auth;
 
 use App\User;
 use App\UserFriend;
-use DB;
+use App\UserPraise;
+use DB,Redirect;
+use App\Http\Controllers\Praise\PraiseController;
+
 
 class UserHomeController extends Controller {
 
@@ -25,8 +28,13 @@ class UserHomeController extends Controller {
 						->join('user_friends','user_friends.friendId','=','users.id')
 						->where('user_friends.userId','=',$self->id)
 						->get();
-		$groupLists = DB::table('users')
+		$ownedGroupLists = DB::table('users')
 						->join('groups','users.id','=','groups.captainId')
+						->where('users.id','=',$self->id)
+						->get();
+		$joinedGroupLists = DB::table('users')
+						->join('group_members','group_members.userId','=','users.id')
+						->join('groups','groups.id','=','group_members.groupId')
 						->where('users.id','=',$self->id)
 						->get();
 		$noteLists = DB::table('users')
@@ -34,9 +42,10 @@ class UserHomeController extends Controller {
 						->where('users.id','=',$self->id)
 						->get();
 		return view('user.self')->withNotes($noteLists)
-								->withSelf(Auth::user())
+								->withSelf($self)
 								->withFriends($friendLists)
-								->withGroups($groupLists);
+								->with('ownedGroups',$ownedGroupLists)
+								->with('joinedGroups',$joinedGroupLists);
 	}
 
 	/**
@@ -76,8 +85,13 @@ class UserHomeController extends Controller {
 						->join('user_friends','user_friends.friendId','=','users.id')
 						->where('user_friends.userId','=',$id)
 						->get();
-			$groupLists = DB::table('users')
+			$ownedGroupLists = DB::table('users')
 						->join('groups','users.id','=','groups.captainId')
+						->where('users.id','=',$id)
+						->get();
+			$joinedGroupLists = DB::table('users')
+						->join('group_members','users.id','=','group_members.userId')
+						->join('groups','groups.id','=','group_members.groupId')
 						->where('users.id','=',$id)
 						->get();
 			$noteLists = DB::table('users')
@@ -86,7 +100,8 @@ class UserHomeController extends Controller {
 						->get();
 			return view('user.viewuser')->withUser(User::find($id))
 										->withFriends($friendLists)
-										->withGroups($groupLists)
+										->with('ownedGroups',$ownedGroupLists)
+										->with('joinedGroups',$joinedGroupLists)
 										->withNotes($noteLists);
 
 		}
@@ -124,6 +139,17 @@ class UserHomeController extends Controller {
 	public function destroy($id)
 	{
 		//
+	}
+
+	/**
+	 * Praise one user.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function praise($id){
+		PraiseController::praise('User',$id);
+		return Redirect::back();
 	}
 
 }

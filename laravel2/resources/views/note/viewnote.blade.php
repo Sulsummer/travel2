@@ -34,6 +34,7 @@
 		<input type="hidden" name="_token" value="{{ csrf_token() }}">
 		<button type="submit" class="btn btn-lg btn-danger">Delete</button>
 	</form>
+	<a href="{{ URL('note/viewnote/'.$note->id.'/praise') }}"><button class="btn btn-lg btn-success">Praise</button></a>
 </div>
 
 <div class="comment">

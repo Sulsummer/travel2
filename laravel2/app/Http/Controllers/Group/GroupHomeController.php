@@ -6,8 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Group;
+use App\GroupMember;
+use App\GroupPraise;
 
 use Redirect,Input,Auth,DB,Response;
+use App\Http\Controllers\Praise\PraiseController;
 
 
 class GroupHomeController extends Controller {
@@ -102,5 +105,32 @@ class GroupHomeController extends Controller {
 	{
 		//
 	}
+
+	/**
+	 * Join one group.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function join($id){
+		GroupMember::firstOrCreate([
+			'groupId' => $id,
+			'userId'  => Auth::user()->id]);
+		return Redirect::back();
+	}
+
+	/**
+	 * Praise one group.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function praise($id){
+		PraiseController::praise('Group',$id);
+		return Redirect::back();
+	}
+
+
+
 
 }

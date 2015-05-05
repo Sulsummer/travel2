@@ -1,15 +1,15 @@
-<?php namespace App\Http\Controllers\Note\Comment;
+<?php namespace App\Http\Controllers\User\Comment;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
-use App\CommentNote;
+use App\User;
+use App\CommentUser;
+use Redirect,Input;
+use Auth;
 
-
-use Redirect,Input,Auth,Session;
-
-class CommentNoteController extends Controller {
+class CommentUserController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
@@ -20,10 +20,6 @@ class CommentNoteController extends Controller {
 	{
 		//
 	}
-
-//	public function noteComment($id){
-//		return view('note.viewnote/{id}');
-//	}
 
 	/**
 	 * Show the form for creating a new resource.
@@ -42,17 +38,18 @@ class CommentNoteController extends Controller {
 	 */
 	public function store(Request $request)
 	{
-		$commentNote = new CommentNote;
-		$commentNote->noteId = $request->input('noteId');
-		$commentNote->refId = $request->input('refId');
-		$commentNote->userId = Auth::user()->id;
-		$commentNote->comment= $request->input('comment');
-		if($commentNote->save()){
+		//$comment = new CommentUser;
+		if(CommentUser::create([
+			'refId'    => $request->refId,
+			'personId' => $request->personId,
+			'userId'   => Auth::user()->id,
+			'comment'  => $request->comment])){
 			return Redirect::back();
 		}
 		else{
 			return Redirect::back()->withInput()->withErrors("Comment Failed!");
 		}
+
 	}
 
 	/**

@@ -39,6 +39,9 @@
 		<input type="hidden" name="_token" value="{{ csrf_token() }}">
 		<button type="submit" class="btn btn-lg btn-danger">Delete</button>
 	</form>
+	<a href="{{ URL('group/viewgroup/'.$group->id.'/join') }}"><button class="btn btn-lg btn-success">Join</button></a>
+	<a href="{{ URL('group/viewgroup/'.$group->id.'/praise') }}"><button class="btn btn-lg btn-success">Praise</button></a>
+
 </div>
 
 <div class="comment">

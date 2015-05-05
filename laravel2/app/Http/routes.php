@@ -26,7 +26,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function(){
 
 Route::group(['prefix' => 'note', 'namespace' => 'Note'], function(){
 	Route::get('/','NoteHomeController@index');
-	Route::get('viewnote/{id}','NoteHomeController@show');
+	Route::group(['prefix' => 'viewnote/{id}'],function(){
+		Route::get('/','NoteHomeController@show');
+		Route::group(['middleware' => 'auth'],function(){
+			Route::get('praise','NoteHomeController@praise');
+		});
+	});
 	Route::resource('handle','NoteHomeController');
 	Route::group(['middleware' => 'auth', 'namespace' => 'Comment'],function(){
 		Route::resource('notecomment','CommentNoteController');
@@ -39,7 +44,13 @@ Route::group(['prefix' => 'note', 'namespace' => 'Note'], function(){
 
 Route::group(['prefix' => 'group','namespace' => 'Group'],function(){
 	Route::get('/','GroupHomeController@index');
-	Route::get('viewgroup/{id}','GroupHomeController@show');
+	Route::group(['prefix' => 'viewgroup/{id}'],function(){
+		Route::get('/','GroupHomeController@show');
+		Route::group(['middleware' => 'auth'],function(){
+			Route::get('join','GroupHomeController@join');
+			Route::get('praise','GroupHomeController@praise');
+		});
+	});
 	Route::resource('handle','GroupHomeController');
 	Route::group(['middleware' => 'auth', 'namespace' => 'Comment'],function(){
 		Route::resource('groupcomment','CommentGroupController');
@@ -48,7 +59,16 @@ Route::group(['prefix' => 'group','namespace' => 'Group'],function(){
 
 Route::group(['prefix' => 'user','namespace' => 'User'], function(){
 	Route::get('/','UserHomeController@index');
-	Route::get('viewuser/{id}','UserHomeController@show');
+	Route::group(['prefix' => 'viewuser/{id}'],function(){
+		Route::get('/','UserHomeController@show');
+		Route::group(['middleware' => 'auth'],function(){
+			Route::get('praise','UserHomeController@praise');
+
+		});
+	});
+	Route::group(['middleware' => 'auth', 'namespace' => 'Comment'],function(){
+		Route::resource('usercomment','CommentUserController');
+	});
 });
 
 
