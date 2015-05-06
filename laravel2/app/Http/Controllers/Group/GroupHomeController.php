@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Group;
 use App\GroupMember;
 use App\GroupPraise;
+use App\GroupAnnouncement;
 
 use Redirect,Input,Auth,DB,Response;
 use App\Http\Controllers\Praise\PraiseController;
@@ -42,17 +43,27 @@ class GroupHomeController extends Controller {
 	 */
 	public function store(Request $request)
 	{
+		$userId = Auth::user()->id;
+
 		$this->validate($request,[
 			'groupName' => 'required|max:50']);
 		
 		$group = new Group;
 		$group->groupName = $request->input('groupName');
-		$group->captainId = Auth::user()->id;
+		$group->setterId = $userId;
 		$group->startDate = $request->input('startDate');
 		$group->endDate = $request->input('endDate');
 		$group->destination = $request->input('destination');
 
 		if($group->save()){
+			$groupId = DB::table('groups')
+						  ->where('setterId',$userId)
+						  ->where('groupName',$group->groupName)
+						  ->get();
+			GroupMember::firstOrCreate([
+				'groupId' => $groupId[0]->id,
+				'userId'  => $userId,
+				'isCaptain' => 1]);
 			return Redirect::to('group');
 		}
 		else{
@@ -69,14 +80,21 @@ class GroupHomeController extends Controller {
 	public function show($id)
 	{
 		$isSelf = false;
-		$captainId = Group::find($id)->captainId;
-		if(Auth::user()->id == $captainId){
+		$setterId = Group::find($id)->setterId;
+		if(Auth::user()->id == $setterId){
 			$isSelf = true;
 		}
-		$captain = DB::table('users')->where('id',$captainId)->get();
+
+		$setter = DB::table('users')->where('id',$setterId)->get();
+		
+		$memberList = $this->getMemberList($id);
+		$announcement = $this->getAnnounce($id);
+		
 		return view('group.viewgroup')->withGroup(Group::find($id))
-									  ->withCaptain($captain)
-									  ->with('isSelf',$isSelf);
+									  ->withSetter($setter)
+									  ->with('isSelf',$isSelf)
+									  ->withAnnouncements($announcement)
+									  ->with('groupMembers',$memberList);
 	}
 
 	/**
@@ -135,6 +153,61 @@ class GroupHomeController extends Controller {
 	public function praise($id){
 		PraiseController::praise('Group',$id);
 		return Redirect::back();
+	}
+
+
+	/**
+	 * Show the announcement publish page.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function announce($id){
+		return view('group.createannounce')->withId($id);
+	}
+
+	/**
+	 * Store the announcement.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function pushAnnounce(Request $request,$id){
+		GroupAnnouncement::firstOrCreate([
+			'groupId' => $id,
+			'userId'  => Auth::user()->id,
+			'announcement' => $request->input('announcement')]);
+		return Redirect::to('group/viewgroup/'.$id);
+	}
+
+	/**
+	 * Get the group announcement.
+	 *
+	 * @param  int  $id
+	 * @return Array
+	 */
+	private function getAnnounce($id){
+		
+		return $announcement = DB::table('group_announcements')
+						  	 ->join('users','users.id','=','group_announcements.userId')
+						  	 ->where('groupId',$id)
+						  	 ->get();
+
+	}
+
+	/**
+	 * Get the group members.
+	 *
+	 * @param  int  $id
+	 * @return Array
+	 */
+	private function getMemberList($id){
+
+		return $memberList = DB::table('groups')
+						   ->join('group_members','groups.id','=','group_members.groupId')
+						   ->join('users','users.id','=','group_members.userId')
+						   ->where('groups.id','=',$id)
+						   ->get();
 	}
 
 

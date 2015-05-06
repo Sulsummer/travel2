@@ -4,6 +4,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class GroupMember extends Model {
 
-	protected $fillable = ['groupId','userId'];
+	protected $fillable = ['groupId','userId','isCaptain'];
 
 }

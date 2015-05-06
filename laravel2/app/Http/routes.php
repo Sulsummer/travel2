@@ -46,6 +46,8 @@ Route::group(['prefix' => 'group','namespace' => 'Group'],function(){
 	Route::get('/','GroupHomeController@index');
 	Route::group(['prefix' => 'viewgroup/{id}'],function(){
 		Route::get('/','GroupHomeController@show');
+		Route::get('announce','GroupHomeController@announce');
+		Route::post('pushAnnounce','GroupHomeController@pushAnnounce');
 		Route::group(['middleware' => 'auth'],function(){
 			Route::get('join','GroupHomeController@join');
 			Route::get('praise','GroupHomeController@praise');

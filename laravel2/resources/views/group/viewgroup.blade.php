@@ -14,23 +14,69 @@
     	{{ $group->date }}
   	</div>
   	<div id="userName" style="text-align: right;">
-		@foreach ($captain as $c)
-    		{{ var_dump($c) }}
+		@foreach ($setter as $s)
+    		{{ var_dump($s) }}
     	@endForeach 
-    	<a href="{{ URL('user/viewuser/'.$captain[0]->id) }}">{{ $captain[0]->nickName }}</a> 	
+    	<a href="{{ URL('user/viewuser/'.$setter[0]->id) }}">{{ $setter[0]->nickName }}</a> 	
     </div>
   
   	<div id="content" style="padding: 50px;">
    		<p>Group Id: {{ $group->id }}</p>
    		<p>Group Name: {{ $group->groupName }}</p>
-   		<p>Group Captain: {{ $group->captainId }}</p>
+   		<p>Group Setter: {{ $group->setterId }}</p>
    		<p>Group Set Date: {{ $group->date }}</p>
    		<p>Group Start Date: {{ $group->startDate }}</p>
    		<p>Group End Date: {{ $group->endDate }}</p>
    		<p>Group Popularity: {{ $group->popularity }}</p>
    		<p>Group Destination: {{ $group->destination }}</p>
   	</div>
+
+  	<hr>
+
+  	<div class="captain">
+  		<h3>Captain:</h3>
+
+  	</div>
+
+  	<div class="announcement">
+  		<h3>Announcement:</h3>
+
+  	@if ($announcements)
+  		<ul>
+  			@foreach ($announcements as $announcement)
+  				<li>
+  					<h4>
+  						<a href="{{ URL('user/viewuser/'.$announcement->id) }}">
+  							{{ $announcement->nickName }}
+  						</a>
+  					</h4>
+  					<p>{{ $announcement->announcement }}</p>
+  				</li>
+  			@endForeach
+  		</ul>
+ 	@endIf
+  	</div>
+  	<div class="groupMembers">
+  		<h3>Group Members:</h3>
+  		@if ($groupMembers)
+  		<ul>
+  			@foreach ($groupMembers as $groupMember)
+  				<li>
+  					<h4>
+  					<a href="{{ URL('user/viewuser/'.$groupMember->id) }}">
+  						{{ $groupMember->nickName }}
+  					</a>
+  					</h4>
+  				</li>
+  			@endForeach
+  		</ul>
+ 		@endIf
+  	</div>
+ 
 </div>
+
+
+
 
 <div class="modify">
 	@if ($isSelf)
@@ -44,6 +90,7 @@
 	<a href="{{ URL('group/viewgroup/'.$group->id.'/join') }}"><button class="btn btn-lg btn-success">Join</button></a>
 	<a href="{{ URL('group/viewgroup/'.$group->id.'/praise') }}"><button class="btn btn-lg btn-success">Praise</button></a>
 	@endIf
+	<a href="{{ URL('group/viewgroup/'.$group->id.'/announce') }}"><button class="btn btn-lg btn-success">Add a Announcement</button></a>
 </div>
 
 <div class="comment">
