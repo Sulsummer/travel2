@@ -11,9 +11,10 @@
 |
 */
 
-//Route::get('home', 'WelcomeController@index');
 
 Route::get('/', 'HomeController@index');
+Route::get('home','HomeController@home');
+
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
@@ -61,11 +62,14 @@ Route::group(['prefix' => 'group','namespace' => 'Group'],function(){
 
 Route::group(['prefix' => 'user','namespace' => 'User'], function(){
 	Route::get('/','UserHomeController@index');
+	Route::post('ok','UserHomeController@acceptApply');
 	Route::group(['prefix' => 'viewuser/{id}'],function(){
 		Route::get('/','UserHomeController@show');
 		Route::group(['middleware' => 'auth'],function(){
 			Route::get('praise','UserHomeController@praise');
-
+			Route::group(['prefix' => 'apply'],function(){
+				Route::get('/','UserHomeController@apply');
+			});
 		});
 	});
 	Route::group(['middleware' => 'auth', 'namespace' => 'Comment'],function(){
@@ -74,7 +78,14 @@ Route::group(['prefix' => 'user','namespace' => 'User'], function(){
 });
 
 
-
+Route::group(['prefix' => 'mailbox','namespace' => 'Msg','middleware' => 'auth'],function(){
+	Route::get('/','MsgController@getMsg');
+	Route::group(['prefix' => 'viewmsg'],function(){
+		Route::get('{id}','MsgController@showMsgDetail');
+	});
+	Route::get('talk/{id}','MsgController@sendMsg');
+	Route::resource('send','MsgController',['only' => ['store']]);
+});
 
 
 

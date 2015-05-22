@@ -1,0 +1,192 @@
+
+
+
+body {
+	background-color: #232326;
+  color: #999999;
+}
+
+hr {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.top-title {
+	margin: 0 56% 55px 44%;
+}
+
+.top-title a {
+	text-decoration: none;
+	color: #9520B5;
+
+}
+
+.mod {
+	margin-top: 18px;
+	margin-left: 30px;
+}
+
+.my-nav a {
+	text-decoration: none;
+	color:white;
+	font-size: 20px;
+	margin-left: 200px;
+	margin-right: 150px;
+}
+.my-nav-2 {
+  margin-left: 200px;
+}
+.my-nav-2 a {
+	text-decoration: none;
+  color:white;
+  font-size: 20px;
+  margin-right: 170px;
+  
+}
+
+.footer {
+  color: white;
+}
+
+.self {
+	display: none;
+	position: absolute;
+	width: 270px;
+	height: 300px;
+	background:white;
+	margin-left: 330px;
+	z-index: 100;
+  border:2px solid;
+  border-radius:10px;
+  background: #CFC9D0;
+}
+
+.self img {
+  width: 100px;
+  height: 90px;
+  margin-left: 30%;
+  border:2px solid;
+  border-radius:50px;
+}
+
+.self p {
+   margin-left: 103px;
+   margin-right: 80px;
+
+}
+
+.self a {
+  text-decoration: none;
+}
+
+a {
+  text-decoration: none;
+  color: #999999;
+}
+
+
+
+.hex .corner-1, .hex .corner-2 {
+  	position: absolute;
+  	top: 0;
+  	left: 0;
+  	width: 100%;
+  	height: 100%;
+  	background: inherit;
+  	z-index: -2;
+  	overflow: hidden;
+}
+
+.hex .corner-1:before, .hex .corner-2:before {
+  	width: 173px;
+  	height: 173px;
+  	content: '';
+  	position: absolute;
+  	top: 0;
+  	left: 0;
+  	z-index: 1;
+  	background: inherit;
+  	background-repeat: no-repeat;
+  	@includebackface-visibility (hidden);
+}
+
+.hex-container {
+  	width: 700px;
+  	height: 100%;
+
+  	top: 50px;
+  	left: 50%;
+  	margin-top: 50px;
+  	margin-left: 148px;
+  	margin-bottom: 50px;
+}
+
+.hex {
+  	width: 150px;
+  	height: 86px;
+  	background-color: #ccc;
+  	background-repeat: no-repeat;
+  	background-position: 50% 50%;
+  	position: relative;
+  	float: left;
+  	margin: 25px 5px;
+  	text-align: center;
+}
+.hex.hex-gap {
+  	margin-left: 86px;
+}
+.hex .corner-1 {
+  	z-index: -1;
+  	-webkit-transform: rotate(60deg);
+      -ms-transform: rotate(60deg);
+          transform: rotate(60deg);
+}
+.hex .corner-1:before {
+  	-webkit-transform-origin: 0 0;
+      -ms-transform-origin: 0 0;
+          transform-origin: 0 0;
+}
+.hex .corner-2 {
+  	-webkit-transform: rotate(-60deg);
+      -ms-transform: rotate(-60deg);
+          transform: rotate(-60deg);
+}
+.hex .corner-2:before {
+  	bottom: 0;
+}
+.hex .inner {
+  	color: #eee;
+}
+.hex hr {
+  	border: 0;
+  	border-top: 1px solid #eee;
+  	width: 60%;
+ 	margin: 15px auto;
+}
+.hex p {
+  	font-size: 16px;
+  	font-family: Kotta One, serif;
+  	width: 80%;
+ 	margin: 0 auto;
+}
+.hex.hex-1 {
+  	background: #E48D19;
+}
+.hex.hex-2 {
+  	background: #3E8DD0;
+}
+.hex.hex-3 {
+  	background: #CE4F3C;
+}
+.hex.hex-4{
+	background: #EA43E2;	
+}
+.hex.hex-5{
+	background: #2CD11A;	
+}
+.hex.hex-6{
+	background: #E3F02D;	
+}
+.hex.hex-7{
+	background: #2F3AB1;	
+}
