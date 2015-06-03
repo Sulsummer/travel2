@@ -47,7 +47,9 @@
   							<p>
   								<a href="{{ URL('user/viewuser/'.$applyHasHandle->userId) }}">{{ $applyHasHandle->nickName }}</a>
   								wants to be your friend!
-  							  <form>
+  							  <form method="post" action="user/delete">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="applyId" value="{{ $applyHasHandle->id}}">
   								  <button type="submit" class="btn btn-danger">Delete</button>
   							  </form>
   							</p>
@@ -64,7 +66,7 @@
  					NickName:
  				</div>
   				<div class="panel-body">
-    				{{ $self->nickName }}balabala
+    				{{ $self->nickName }}
   				</div>
 			</div>
  		</div>

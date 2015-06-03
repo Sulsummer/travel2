@@ -54,6 +54,7 @@ Route::group(['prefix' => 'group','namespace' => 'Group'],function(){
 			Route::get('praise','GroupHomeController@praise');
 		});
 	});
+	Route::post('modify','GroupHomeController@update');
 	Route::resource('handle','GroupHomeController');
 	Route::group(['middleware' => 'auth', 'namespace' => 'Comment'],function(){
 		Route::resource('groupcomment','CommentGroupController');
@@ -63,6 +64,7 @@ Route::group(['prefix' => 'group','namespace' => 'Group'],function(){
 Route::group(['prefix' => 'user','namespace' => 'User'], function(){
 	Route::get('/','UserHomeController@index');
 	Route::post('ok','UserHomeController@acceptApply');
+	Route::post('delete','UserHomeController@deleteApply');
 	Route::group(['prefix' => 'viewuser/{id}'],function(){
 		Route::get('/','UserHomeController@show');
 		Route::group(['middleware' => 'auth'],function(){

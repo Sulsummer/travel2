@@ -25,7 +25,7 @@
       <p><a href="{{ URL('user') }}">{{ $user->nickName }}</a></p>
       <p>{{ $user->email }}</p>
       <p><a href="{{ URL('auth/logout') }}">logout</a></p>
-      <p><a href="{{ URL('user/mailbox') }}">mailbox</a></p>
+      <p><a href="{{ URL('mailbox') }}">mailbox</a></p>
 
     @else
       <p>Offline!</p>

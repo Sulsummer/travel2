@@ -142,7 +142,7 @@ class UserHomeController extends Controller {
 	 */
 	private function getNote($id){
 		return $noteLists = DB::table('users')
-						->join('notes','users.id','=','notes.id')
+						->join('notes','users.id','=','notes.authorId')
 						->where('users.id','=',$id)
 						->get();
 
@@ -180,6 +180,18 @@ class UserHomeController extends Controller {
 				'friendId'  => Auth::user()->id]);
 		}
 
+		return Redirect::to('user');
+	}
+
+
+	/**
+	 * Delete one's apply.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function deleteApply(Request $request){
+		ApplyFriend::destroy($request->input('applyId'));
 		return Redirect::to('user');
 	}
 

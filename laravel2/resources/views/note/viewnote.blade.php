@@ -23,7 +23,7 @@
   
   	<div id="content" style="padding: 50px;">
    		<p>
-      		{{ $note->noteContent }}
+      		{{ var_dump($note) }}
     	</p>
   	</div>
 </div>

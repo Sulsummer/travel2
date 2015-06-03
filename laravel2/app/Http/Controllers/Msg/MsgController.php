@@ -8,7 +8,6 @@ use Redirect;
 
 use App\User;
 use App\ReceiverMsgBox;
-use App\SenderMsgBox;
 use Auth;
 
 
@@ -44,7 +43,7 @@ class MsgController extends Controller {
 
 
 	/**
-	 * Display one send msg.
+	 * Display one dialog.
 	 * @param message id
 	 * @return Response
 	 */
@@ -57,7 +56,7 @@ class MsgController extends Controller {
 								->orWhere('receiverId',$userId)
 								->orderBy('date','desc')
 								->get();
-		$names = array($userId => User::find($userId)->nickName, $id => User::find($id)->nickName);
+		$names = array($userId => Auth::user()->nickName, $id => User::find($id)->nickName);
 		return view('msg.viewmsg')->with('msgs',$msgs)->with('names',$names);
 	}
 
@@ -85,11 +84,6 @@ class MsgController extends Controller {
 
 		$personId = $request->input('personId');
 		$msgContent = $request->input('msgContent');
-
-		SenderMsgBox::create([
-		'receiverId' => $personId,
-		'senderId'   => Auth::user()->id,
-		'msgContent' => $msgContent]);
 
 		ReceiverMsgBox::create([
 		'receiverId' => $personId,

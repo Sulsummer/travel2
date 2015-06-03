@@ -72,6 +72,27 @@ class GroupHomeController extends Controller {
 	}
 
 	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  $request
+	 * @return Response
+	 */
+	public function update(Request $request)
+	{
+		$group = Group::find($request->input('groupId'));
+
+		$group->groupName = $request->input('groupName');
+		$group->setterId = Auth::user()->id;
+		$group->startDate = $request->input('startDate');
+		$group->endDate = $request->input('endDate');
+		$group->destination = $request->input('destination');
+
+		if($group->save()){
+			return Redirect::to('group');
+		}
+	}
+
+	/**
 	 * Display the specified resource.
 	 *
 	 * @param  int  $id
@@ -106,17 +127,6 @@ class GroupHomeController extends Controller {
 	public function edit($id)
 	{
 		return view('group.handle.edit')->withGroup(Group::find($id));
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
 	}
 
 	/**

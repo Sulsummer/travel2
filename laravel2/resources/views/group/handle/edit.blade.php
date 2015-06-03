@@ -2,8 +2,9 @@
 
 @section ('content')
 	<div class="row">
-	<form method="post" action="{{ URL('group/handle') }}">
+	<form method="post" action="{{ URL('group/modify') }}">
 		<input type="hidden" name="_token" value="{{ csrf_token() }}">
+		<input type="hidden" name="groupId" value="{{ $group->id }}">
 		<div class="form-group">
 			<label>Group Name:</label>
 			<input type="text" class="form-control" name="groupName" value="{{ $group->groupName }}">

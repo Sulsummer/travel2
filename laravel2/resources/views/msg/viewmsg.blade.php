@@ -11,7 +11,6 @@
 		</li>
 	@endForeach
 	</ul>
-
 @endIf
 <form method="post" action="{{ URL('mailbox/send') }}">
 	<textarea rows="5" class="form-control" name="msgContent"></textarea>
