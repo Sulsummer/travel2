@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends ('layout.indexLayout')
 
 @section('content')
 <div class="container-fluid">

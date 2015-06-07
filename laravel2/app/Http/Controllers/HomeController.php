@@ -35,8 +35,12 @@ class HomeController extends Controller {
 		return view('index');
 	}
 
-	public function home(){
-		return view('home');
+	public function signIn() {
+		return view('auth.login');
+	}
+
+	public function signUp() {
+		return view('auth.register');
 	}
 
 

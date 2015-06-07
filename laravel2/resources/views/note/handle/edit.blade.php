@@ -1,4 +1,4 @@
-@extends ('layout.default')
+@extends ('layout.indexLayout3')
 
 @section ('content')
 	<div class="row">
@@ -11,10 +11,11 @@
 		</div>
 		<div class="form-group">
 			<label>Content:</label>
-			<textarea class="form-control" required="required" rows="40" name="noteContent">{{ $note->noteContent }}</textarea>
+			<textarea required="required" rows="30" cols="100" name="noteContent">{{ $note->noteContent }}</textarea>
 		</div>
-		<button type="submit" class="btn btn-success">Modify</button>
+		<button type="submit">Edit</button>
 	</form>
 	</div>
+	
 
 @endSection

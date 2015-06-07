@@ -1,150 +1,245 @@
-@extends ('layout.default')
-
-@section ('content')
-<div class="group">
-	<h4>
-    	<a href="{{ URL('group') }}">⬅️Before</a>
-  	</h4>
-  	
-  	<h1 style="text-align: center; margin-top: 50px;">{{ $group->groupName }}</h1>
-  		
-  	<hr>
-  	
-  	<div id="date" style="text-align: right;">
-    	{{ $group->date }}
-  	</div>
-  	<div id="userName" style="text-align: right;">
-		@foreach ($setter as $s)
-    		{{ var_dump($s) }}
-    	@endForeach 
-    	<a href="{{ URL('user/viewuser/'.$setter[0]->id) }}">{{ $setter[0]->nickName }}</a> 	
-    </div>
-  
-  	<div id="content" style="padding: 50px;">
-   		<p>Group Id: {{ $group->id }}</p>
-   		<p>Group Name: {{ $group->groupName }}</p>
-   		<p>Group Setter: {{ $group->setterId }}</p>
-   		<p>Group Set Date: {{ $group->date }}</p>
-   		<p>Group Start Date: {{ $group->startDate }}</p>
-   		<p>Group End Date: {{ $group->endDate }}</p>
-   		<p>Group Popularity: {{ $group->popularity }}</p>
-   		<p>Group Destination: {{ $group->destination }}</p>
-  	</div>
-
-  	<hr>
-
-  	<div class="captain">
-  		<h3>Captain:</h3>
-
-  	</div>
-
-  	<div class="announcement">
-  		<h3>Announcement:</h3>
-
-  	@if ($announcements)
-  		<ul>
-  			@foreach ($announcements as $announcement)
-  				<li>
-  					<h4>
-  						<a href="{{ URL('user/viewuser/'.$announcement->id) }}">
-  							{{ $announcement->nickName }}
-  						</a>
-  					</h4>
-  					<p>{{ $announcement->announcement }}</p>
-  				</li>
-  			@endForeach
-  		</ul>
- 	@endIf
-  	</div>
-  	<div class="groupMembers">
-  		<h3>Group Members:</h3>
-  		@if ($groupMembers)
-  		<ul>
-  			@foreach ($groupMembers as $groupMember)
-  				<li>
-  					<h4>
-  					<a href="{{ URL('user/viewuser/'.$groupMember->id) }}">
-  						{{ $groupMember->nickName }}
-  					</a>
-  					</h4>
-  				</li>
-  			@endForeach
-  		</ul>
- 		@endIf
-  	</div>
- 
-</div>
-
-
-
-
-<div class="modify">
-	@if ($isSelf)
-	<a href="{{ URL('group/handle/'.$group->id.'/edit') }}"><button class="btn btn-lg btn-success">Modify</button></a>
-	<form action="{{ URL('group/handle/'.$group->id) }}" method="post" style="display:inline">
-		<input type="hidden" name="_method" value="delete">
-		<input type="hidden" name="_token" value="{{ csrf_token() }}">
-		<button type="submit" class="btn btn-lg btn-danger">Delete</button>
-	</form>
-	@else 
-	<a href="{{ URL('group/viewgroup/'.$group->id.'/join') }}"><button class="btn btn-lg btn-success">Join</button></a>
-	<a href="{{ URL('group/viewgroup/'.$group->id.'/praise') }}"><button class="btn btn-lg btn-success">Praise</button></a>
-	@endIf
-	<a href="{{ URL('group/viewgroup/'.$group->id.'/announce') }}"><button class="btn btn-lg btn-success">Add a Announcement</button></a>
-</div>
-
-<div class="comment">
-
-	@if (count($errors) > 0)
-		<div class="alert alert-danger">
-			<strong>Whoops!</strong> There were some problems with your input.<br><br>
-			
-			<ul>
-				@foreach ($errors as $error)
-					<li>{{ $error }}</li>
-				@endForeach
-			</ul>
-
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Travel!</title>
+		<link rel="stylesheet" href="{{URL('check-group-css/default.css')}}" />
+		<link rel="stylesheet" href="{{URL('check-group-css/climacons.css')}}" />
+		<link rel="stylesheet" href="{{URL('check-group-css/component.css')}}" />
+		<link rel="stylesheet" href="{{URL('check-group-css/extra.css')}}" />
+		<script src="{{URL('check-group-js/modernizr.custom.js')}}"></script>
+	</head>
+	<body>
+		<div class="my-back">
+			<a href="{{URL('group')}}">⬅️back</a>
 		</div>
-	@endIf
+		<div class="container">	
+			<div class="main">
 
-	<div class="newComment">
-		<h4>Your Comment:</h4>
-		
-		<form method="post" id="newComment" action="{{ URL('group/groupcomment') }}">
-			<input type="hidden" name="_token" value="{{ csrf_token() }}">
-        	<input type="hidden" name="groupId" value="{{ $group->id }}">
+				<ul id="rb-grid" class="rb-grid clearfix">
+					<li class="rb-span-4">
+						<h3>Introduction of This Group</h3>
+						<span class="rb-temp">
+							Captain:
+							@foreach ($groupMembers as $mem)
+								@if ($mem->isCaptain)
+									{{$mem->nickName}}
+								@endIf
+							@endForeach
+						</span>
+						<div class="rb-overlay">
+							<span class="rb-close">close</span>
+							<div class="rb-week">
+								<div>
+									<span>{{$group->groupName}}</span>
+									<span class="span-content">
+										Group introduction should be here.
+									</span>
+								</div>
+								<div>
+									<span>Hot Level</span>
+									<span class="span-content">{{$group->popularity}}</span>
+									<span>Date</span>
+									<span class="span-content">
+										start:
+									</span>
+									<span class="span-content">
+										{{$group->startDate}}
+									</span>
+									<span class="span-content"></span>
+									<span class="span-content">
+										return:
+									</span>
+									<span class="span-content">
+										{{$group->endDate}}
+									</span>
+								</div>
+								<div>
+									<span>Destination</span>
+									<span class="span-content">
+										{{$group->destination}}
+									</span>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li class="rb-span-4">
+						<h3>News and Announcements</h3>
+						<span class="rb-temp">News should be here.</span>
+						<div class="rb-overlay">
+							<span class="rb-close">close</span>
+							<div class="rb-week">
+								<div>
+									<span>
+										What's new?
+									</span>
+									<span class="span-content">
+										News should be here.
+									</span>
+								</div>
+								<div>
+									<span>
+										@if($announcements)
+											@foreach ($announcements as $announcement)
+												<a href="{{ URL('user/viewuser/'.$announcement->id) }}">
+												{{$announcement->nickName}}
+												</a>
+												:
+												<br>
+												{{$announcement->announcement}}
+												<br>
+												{{$announcement->date}}
+											@endForeach
+										@else
+											No Announcement yet.
+										@endIf
+									</span>
+								</div>
+								<div>
+									<span class="span-content">
+									<textarea rows="40" cols="50" placeholder="add an announcement"></textarea>
+									<a href="#">Submit</a>
+									</span>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li class="rb-span-2">
+						<h3>Members</h3>
+						<span class="rb-temp">Come and Join</span>
+						<div class="rb-overlay">
+							<span class="rb-close">close</span>
+							<div class="rb-week">
+								<div>
+									<span>Members:</span>
+									@foreach ($groupMembers as $mem)
+										<span class="span-content">
+											<a href="#" onclick="f({{$mem->id}})">
+												{{$mem->nickName}}
+												<script type="text/javascript">
+													function f(id) {
+														window.location.href="{{URL('user/viewuser')}}/"+id; 
+													}
+												</script>
+											</a>
+										</span>
+									@endForeach
+								</div>
+								<div>
+									<span>Watcher:</span>
+									<span class="span-content">
+										Watcher should be here.
+									</span>
+								</div>
+								<div>
+									<span>
+										Willing to join us?
+									</span>
+									<span class="span-content">
+										Apply now!
+									</span>
+									<span class="span-content">
+									<textarea rows="30" cols="50" placeholder="what do u want to say?"></textarea>
+									<a href="#" onclick="apply()">Apply</a>
+												<script type="text/javascript">
+													function apply() {
+														window.location.href="{{ URL('group/viewgroup/'.$group->id.'/join') }}"; 
+													}
+												</script>
+									</span>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li class="rb-span-2">
+						<h3>Question and Answer</h3>
+						<span class="rb-temp">To be Clearly</span>
+						<div class="rb-overlay">
+							<span class="rb-close">close</span>
+							<div class="rb-week">
+								<div>
+									<span>
+										Q &#38; A will come soon.
+									</span>
+								</div>
+								<div></div>
+								<div></div>
+							</div>
+						</div>
+					</li>
+					<li class="rb-span-4">
+						<h3>Comments</h3>
+						<span class="rb-temp">Tell others Your Feelings</span>
+						<div class="rb-overlay">
+							<span class="rb-close">close</span>
+							<div class="rb-week">
+								<div>
+									<span>Comments:</span>
 
-        	<div class="form-group">
-        		<label>Comment:</label>
-        		<textarea class="form-control" name="comment" rows="10" required="required"></textarea>
-        	</div>
-        	<button type="submit" class="btn btn-lg btn-success">Submit</button>
-		</form>
-	</div>
+									@if ($groupComment)
+										@foreach ($groupComment as $comment)
+											<span class="span-content">{{$comment->nickName}}</span>
+											<span class="span-content">{{$comment->comment}}</span>
+											<span class="span-content">{{$comment->date}}</span>
+										@endForeach
+									@else
+										<span class="span-content">No Comment Yet.</span>
+									@endIf
+								</div>
+								<div></div>
+								<div>
+									<span class="span-content">
+									<textarea rows="30" cols="50" placeholder="what do u want to say?"></textarea>
+									<a href="#">Submit</a>
+									</span>
+								</div>
+							</div>
+						</div>
+					</li>
+	
+<!--					<li class="icon-clima-4 rb-span-4">
+						<h3>Sydney</h3><span class="rb-temp">25°C</span>
+						<div class="rb-overlay">
+							<span class="rb-close">close</span>
+							<div class="rb-week">
+								<div><span class="rb-city">Sydney</span><span class="icon-clima-4"></span><span>28°C</span></div>
+								<div><span>Mon</span><span class="icon-clima-4"></span><span>24°C</span></div>
+								<div><span>Tue</span><span class="icon-clima-4"></span><span>26°C</span></div>
+								<div><span>Wed</span><span class="icon-clima-2"></span><span>27°C</span></div>
+								<div><span>Thu</span><span class="icon-clima-2"></span><span>30°C</span></div>
+								<div><span>Fri</span><span class="icon-clima-8"></span><span>31°C</span></div>
+								<div><span>Sat</span><span class="icon-clima-8"></span><span>29°C</span></div>
+								<div><span>Sun</span><span class="icon-clima-8"></span><span>29°C</span></div>
+							</div>
+						</div>
+				</li>
+-->					</ul>
 
-	<hr>
 
-	<div class="oldComment">
-		@foreach ($group->comment as $comment)
-		<div class="oneComment">
-			<div class="one" style="border-top: solid 3px #efefef; padding: 5px 20px;">
-				<h3>{{ $comment->userId }}</h3>
-				<h3>{{ $comment->id }}</h3>
-				<h3>{{ $comment->refId }}</h3>
-				<h6>{{ $comment->created_at }}</h6>
+			@if ($isSelf)
+				<div class="my-praise">
+					<a href="{{ URL('group/handle/'.$group->id.'/edit') }}">edit</a>
+						<form action="{{ URL('group/handle/'.$group->id) }}" method="post" style="display:inline">
+							<input type="hidden" name="_method" value="delete">
+							<input type="hidden" name="_token" value="{{ csrf_token() }}">
+							<button type="submit">delete</button>
+						</form>
+				</div>
+			@else
+				<div class="my-praise">
+					<a href="{{ URL('group/viewgroup/'.$group->id.'/praise') }}">praise</a>
+					<a href="#">collection</a>
+				</div>
+			@endIf
 			</div>
-			<div class="content">
-            	<p style="padding: 20px;">
-              		{{ $comment->comment }}
-            	</p>
-          	</div>
-          	<div id="reply{{ $comment->id }}">
-          		<button class="btn btn-lg btn-success" onclick="reply({{ $comment->id }},{{ $comment->userId }})" id="replyButton{{ $comment->id }}">Reply</button>
-          	</div> 
-        </div>
-		@endForeach
-	</div>
-</div>
-@endSection
-
+		</div><!-- /container -->
+		<script src="{{URL('check-group-js/jquery-1.11.3.min.js')}}"></script>
+		<script src="{{URL('check-group-js/jquery.fittext.js')}}"></script>
+		<script src="{{URL('check-group-js/boxgrid.js')}}"></script>
+		<script>
+			$(function() {
+				Boxgrid.init();		
+			});
+		</script>
+	</body>
+</html>

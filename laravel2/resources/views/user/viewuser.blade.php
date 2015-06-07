@@ -1,170 +1,154 @@
-@extends ('layout.default')
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Travel!</title>
 
-@section ('content')
+<link rel="stylesheet" type="text/css" href="{{URL('user-page-css/reset.css')}}">
+<link rel="stylesheet" type="text/css" href="{{URL('user-page-css/stylesheet.css')}}">
+<link rel="stylesheet" type="text/css" href="{{URL('user-page-css/font-awesome.min.css')}}">
+<link rel="stylesheet" type="text/css" href="{{URL('user-page-css/style.css')}}">
+<link rel="stylesheet" type="text/css" href="{{URL('user-page-css/color.css')}}">
 
-	<div class="form-group">
-		<div class="col-md-12">
- 			<div class="panel panel-default">
- 				<div class="panel-heading">
- 					NickName:
- 				</div>
-  				<div class="panel-body">
-  					{{ $user->nickName }}
-  					<a href="{{ URL('user/viewuser/'.$user->id.'/praise') }}"><button class="btn btn-success">Praise</button></a>
-  					<a href="{{ URL('user/viewuser/'.$user->id.'/apply') }}"><button class="btn btn-success">Apply Add Friends</button></a>
-            <a href="{{ URL('mailbox/talk/'.$user->id) }}"><button class="btn btn-success">Send a Message</button></a>
-          </div>
-			</div>
- 		</div>
- 		<div class="col-md-12">
- 			<div class="panel panel-default">
- 				<div class="panel-heading">
- 					Email:
- 				</div>
-  				<div class="panel-body">
-  					{{ $user->email }}
-  				</div>
-			</div>
- 		</div>
- 		<div class="col-md-12">
- 			<div class="panel panel-default">
- 				<div class="panel-heading">
- 					Popularity:
- 				</div>
-  				<div class="panel-body">
-  					{{ $user->popularity }}
-  				</div>
-			</div>
- 		</div>
- 		<div class="col-md-12">
- 			<div class="panel panel-default">
- 				<div class="panel-heading">
- 					Friends List:
- 				</div>
-  				<div class="panel-body">
-  					<ul>
-  						@foreach ($friends as $friend)
-  						<li>
-  							<a href="{{ URL('user/viewuser/'.$friend->friendId)}}">
-  								{{ $friend->nickName }}
-  							</a>
-  						</li>
-  						@endForeach
-  					</ul>
-  				</div>
-			</div>
- 		</div>
- 		<div class="col-md-12">
- 			<div class="panel panel-default">
- 				<div class="panel-heading">
- 					Owned Groups List:
- 				</div>
-  				<div class="panel-body">
-  					<ul>
-  						@foreach ($ownedGroups as $ownedGroup)
-  						<li>
-  							<a href="{{ URL('group/viewgroup/'.$ownedGroup->id)}}">
-  								{{ $ownedGroup->groupName }}
-  							</a>
-  						</li>
-  						@endForeach
-  					</ul>
-  				</div>
-			</div>
- 		</div>
- 		 <div class="col-md-12">
- 			<div class="panel panel-default">
- 				<div class="panel-heading">
- 					Joined Groups List:
- 				</div>
-  				<div class="panel-body">
-  					<ul>
-  						@foreach ($joinedGroups as $joinedGroup)
-  						<li>
-  							<a href="{{ URL('group/viewgroup/'.$joinedGroup->id)}}">
-  								{{ $joinedGroup->groupName }}
-  							</a>
-  						</li>
-  						@endForeach
-  					</ul>
-  				</div>
-			</div>
- 		</div>
- 		<div class="col-md-12">
- 			<div class="panel panel-default">
- 				<div class="panel-heading">
- 					Notes List:
- 				</div>
-  				<div class="panel-body">
-  					<ul>
-  						@foreach ($notes as $note)
-  						<li>
-  							<a href="{{ URL('note/viewnote/'.$note->id)}}">
-  								{{ $note->noteTitle }}
-  							</a>
-  						</li>
-  						@endForeach
-  					</ul>
-  				</div>
-			</div>
- 		</div>
+<script type="text/javascript" src="{{URL('user-page-js/jquery-1.9.1.js')}}"></script>
+<script type="text/javascript" src="{{URL('user-page-js/tabs.js')}}"></script>
 
-	</div>
+</head>
 
+<body>
+   
+<br>
+<!-- Start Tabs -->
+<div class="tabs">
 
+<!-- Start Container tab1 -->
+  <div id="tab1" class="container">
+  
+    <div class="label" id="l1">
+      <h5><a href="#tab1" id="a1">Info</a></h5>
+    </div>
+    
+    <div class="content left" id="content1">
+      <h4>Personal Infomation</h4>
+      @if ($isFriend)
+        <h5><a href="{{ URL('user/viewuser/'.$user->id.'/apply') }}">Add Friends!</a></h5>
+      @endIf
+      <p>NickName:
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        {{$user->nickName}}
+      </p>
+      <p>Hot Level:
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        {{$user->popularity}}
+      </p>
+      <p>Email:
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        {{$user->email}}
+      </p>
+      <p>Date:
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        {{$user->date}}
+      </p>
+      <p>Self Intro:
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        Self introduction should be here.
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;
+        Will come soon.
+      </p>
 
-<div class="comment">
+      
+      
+       
+    </div>
+    
+  </div>
+<!-- End Container tab1 -->
 
-	@if (count($errors) > 0)
-		<div class="alert alert-danger">
-			<strong>Whoops!</strong> There were some problems with your input.<br><br>
-			
-			<ul>
-				@foreach ($errors as $error)
-					<li>{{ $error }}</li>
-				@endForeach
-			</ul>
+<!-- Start Container tab4 -->  
+  <div id="tab4" class="container">
+  
+    <div class="label" id="l4">
+      <h5><a href="#tab4">His/Her Group</a></h5>
+    </div>
+    
+    <div class="content" id="content4">
+      <h4>His/Her Group</h4>
+      
+      <h5>Owned:</h5>
+      @if ($ownedGroups)
+        @foreach ($ownedGroups as $ownedGroup)
+          <p><a href="{{URL('group/viewgroup/'.$ownedGroup->id)}}">{{$ownedGroup->groupName}}</a></p>
+        @endForeach
+      @else
+        <h4>What a pity!He/She's owned 0 group yet!Why not have a try?</h4>
+      @endIf
 
-		</div>
-	@endIf
+      <h5>Joined:</h5>
 
-	<div class="newComment">
-		<h4>Your Comment:</h4>
-		
-		<form method="post" id="newComment" action="{{ URL('user/usercomment') }}">
-			<input type="hidden" name="_token" value="{{ csrf_token() }}">
-        	<input type="hidden" name="personId" value="{{ $user->id }}">
+      @if ($joinedGroups)
+        @foreach ($joinedGroups as $joinedGroup)
+          <p><a href="{{URL('group/viewgroup/'.$joinedGroup->id)}}">{{$joinedGroup->groupName}}</a></p>
+        @endForeach
+      @else
+        <h4>What a pity!He/She's joined 0 group yet!Why not have a try?</h4>
+      @endIf
 
-        	<div class="form-group">
-        		<label>Comment:</label>
-        		<textarea class="form-control" name="comment" rows="10" required="required"></textarea>
-        	</div>
-        	<button type="submit" class="btn btn-lg btn-success">Submit</button>
-		</form>
-	</div>
+    </div>
+    
+  </div>
+<!-- End Container tab4 -->
 
-	<hr>
+<!-- Start Container tab5 -->  
+  <div id="tab5" class="container">
+  
+    <div class="label" id="l5">
+      <h5><a href="#tab5">His/Her Note</a></h5>
+    </div>
+    
+    <div class="content" id="content5">
+      <h4>His/Her Note</h4>
 
-	<div class="oldComment">
-		@foreach ($user->comment as $comment)
-		<div class="oneComment">
-			<div class="one" style="border-top: solid 3px #efefef; padding: 5px 20px;">
-				<h3>{{ $comment->userId }}</h3>
-				<h3>{{ $comment->id }}</h3>
-				<h3>{{ $comment->refId }}</h3>
-				<h6>{{ $comment->created_at }}</h6>
-			</div>
-			<div class="content">
-            	<p style="padding: 20px;">
-              		{{ $comment->comment }}
-            	</p>
-          	</div>
-          	<div id="reply{{ $comment->id }}">
-          		<button class="btn btn-lg btn-success" onclick="reply({{ $comment->id }},{{ $comment->userId }})" id="replyButton{{ $comment->id }}">Reply</button>
-          	</div> 
-        </div>
-		@endForeach
-	</div>
+      @if ($notes)
+        @foreach ($notes as $note)
+          <p><a href="{{URL('note/viewnote/'.$note->id)}}">{{$note->noteTitle}}</a></p>
+        @endForeach
+      @else
+        <h4>What a pity!He/She's shared 0 note yet!Why not have a try?</h4>
+      @endIf
+      
+    </div>
+    
+  </div>
+<!-- End Container tab5 -->
+
+<!-- Start Container tab6 -->  
+  <div id="tab5" class="container">
+  
+    <div class="label" id="l6">
+      <h5><a href="#tab6">His/Her Friend</a></h5>
+    </div>
+    
+    <div class="content" id="content6">
+      <h4>His/Her Friend</h4>
+      
+      @if ($friends)
+        @foreach ($friends as $friend)
+          <p><a href="{{URL('user/viewuser/'.$friend->id)}}">{{$friend->nickName}}</a></p>
+        @endForeach
+      @else
+        <h4>What a pity!He/She's got 0 friend yet!Why not have a try?</h4>
+      @endIf
+
+    </div>
+    
+  </div>
+<!-- End Container tab6 -->
+
 </div>
-@endSection
+<!-- End Tabs -->
 
+</body>
+</html>

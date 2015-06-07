@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
+use App\User;
 use App\Note;
 use App\Http\Controllers\Praise\PraiseController;
 use Redirect,Input,Auth,DB,Response;
@@ -66,11 +67,11 @@ class NoteHomeController extends Controller {
 	{
 		$isSelf = false;
 		$authorId = Note::find($id)->authorId;
-		if(Auth::user()->id == $authorId){
+		if(Auth::user() && Auth::user()->id == $authorId){
 			$isSelf = true;
 		}	
-		$author = DB::table('users')->where('id',$authorId)->get();
-		//$data = array('note' => $note, 'author' => $author);
+		$author = User::find($authorId);
+
 		return view('note.viewnote')->withNote(Note::find($id))
 									->withAuthor($author)
 									->with('isSelf',$isSelf);

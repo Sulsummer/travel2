@@ -1,0 +1,98 @@
+/*---------Common-------*/
+a {
+	text-decoration: none;
+}
+
+footer {
+	background-color: #262626;
+}
+
+footer a {
+	line-height: 50px;
+	color: #eeeeee;
+
+}
+
+.my-back {
+	position: absolute;
+	z-index: 999999;
+	margin-top: 30px;
+	margin-left: 80px;
+}
+
+.my-back a {
+	
+	color: #fff;
+	font-size: 18px;	
+	width: 100px;
+	height: 32px;
+	text-align: center;
+	background: #f1103a;
+	border-radius: 10px;
+	padding: 4px 10px;
+}
+
+.my-praise a {
+	color: #fff;
+	font-size: 18px;
+	width: 100px;
+	height: 32px;
+	speak: none;
+	text-align: center;
+	float: right;
+	background: #f1103a;
+	border-radius: 10px;
+	padding-top: 4px;
+	margin-left: 10px;
+	margin-bottom: 20px;
+}
+
+.my-praise button {
+	color: #fff;
+	font-size: 18px;
+	width: 100px;
+	height: 32px;
+	speak: none;
+	text-align: center;
+	float: right;
+	background: #f1103a;
+	border-radius: 10px;
+	border: 0;
+	padding-bottom: 2px;
+	margin-left: 10px;
+	margin-bottom: 20px;
+	cursor: pointer;
+}
+
+.head-img {
+	border-radius: 10px;
+}
+
+.center {
+	text-align: center;
+}
+
+.my-container {
+	width: 1200px;
+	margin: 10px auto;
+	display: block;
+}
+
+.card {
+	width: 100%;
+	height: 300px;
+	padding-top: 100px;
+}
+
+.spotlight {
+	position: relative;
+	width: 100%;
+	margin: 0 auto;
+
+}
+
+.spotlight img {
+	width: 100%;
+	height: 600px;
+
+}

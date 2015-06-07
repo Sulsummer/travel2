@@ -9,6 +9,7 @@ use App\Group;
 use App\GroupMember;
 use App\GroupPraise;
 use App\GroupAnnouncement;
+use App\CommentGroup;
 
 use Redirect,Input,Auth,DB,Response;
 use App\Http\Controllers\Praise\PraiseController;
@@ -102,7 +103,7 @@ class GroupHomeController extends Controller {
 	{
 		$isSelf = false;
 		$setterId = Group::find($id)->setterId;
-		if(Auth::user()->id == $setterId){
+		if(Auth::user() && Auth::user()->id == $setterId){
 			$isSelf = true;
 		}
 
@@ -110,12 +111,15 @@ class GroupHomeController extends Controller {
 		
 		$memberList = $this->getMemberList($id);
 		$announcement = $this->getAnnounce($id);
+
+		$groupComment = $this->getGroupComment($id);
 		
 		return view('group.viewgroup')->withGroup(Group::find($id))
 									  ->withSetter($setter)
 									  ->with('isSelf',$isSelf)
 									  ->withAnnouncements($announcement)
-									  ->with('groupMembers',$memberList);
+									  ->with('groupMembers',$memberList)
+									  ->with('groupComment',$groupComment);
 	}
 
 	/**
@@ -218,6 +222,10 @@ class GroupHomeController extends Controller {
 						   ->join('users','users.id','=','group_members.userId')
 						   ->where('groups.id','=',$id)
 						   ->get();
+	}
+
+	private function getGroupComment($id) {
+		return CommentGroup::getComment($id);
 	}
 
 

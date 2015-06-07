@@ -13,7 +13,8 @@
 
 
 Route::get('/', 'HomeController@index');
-Route::get('home','HomeController@home');
+//Route::get('signUp', 'HomeController@signUp');
+//Route::get('signIn', 'HomeController@signIn');
 
 
 Route::controllers([

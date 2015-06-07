@@ -1,13 +1,7 @@
-@extends ('layout.default')
+@extends ('layout.indexLayout2')	
 
 @section ('content')
-<div class="my-nav-2">
-    <a href="#">search</a>
-    <a href="#">random</a>
-    <a href="{{ URL('group/handle/create')}}">share</a>
-</div>
 
-<div class="row">
 	<div class="content">
 		<ul>
 			@foreach ($groups as $group)
@@ -25,6 +19,15 @@
 			@endForeach
 		</ul>
 	</div>
-</div>
 
+@endSection
+
+@section ('right-content')
+	<div class="content">
+		<a href="{{ URL('group/handle/create') }}">Create</a>
+		<br>
+		<a style="text-decoration:line-through;">Search</a>
+		<br>
+		<a style="text-decoration:line-through;">Random</a>
+	</div>
 @endSection

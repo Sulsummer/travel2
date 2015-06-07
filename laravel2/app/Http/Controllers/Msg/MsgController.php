@@ -90,7 +90,7 @@ class MsgController extends Controller {
 		'senderId'   => Auth::user()->id,
 		'msgContent' => $msgContent]);
 		
-		return Redirect::to('mailbox');
+		return Redirect::back();
 	}
 
 

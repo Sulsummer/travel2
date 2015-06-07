@@ -11,6 +11,7 @@ use App\User;
 use App\UserFriend;
 use App\UserPraise;
 use App\ApplyFriend;
+use App\ReceiverMsgBox;
 use DB,Redirect;
 use App\Http\Controllers\Praise\PraiseController;
 use App\Http\Controllers\Apply\UserApplyController;
@@ -39,13 +40,16 @@ class UserHomeController extends Controller {
 
 		$applyHasHandle = $this->applyHasHandle();
 
+		$mailPersons = $this->getMsg($self->id);
+
 		return view('user.self')->withNotes($noteLists)
 								->withSelf($self)
 								->withFriends($friendLists)
 								->with('ownedGroups',$ownedGroupLists)
 								->with('joinedGroups',$joinedGroupLists)
 								->with('applyToHandles',$applyToHandle)
-								->with('applyHasHandles',$applyHasHandle);
+								->with('applyHasHandles',$applyHasHandle)
+								->withPersons($mailPersons);
 	}
 
 	/**
@@ -56,7 +60,7 @@ class UserHomeController extends Controller {
 	 */
 	public function show($id)
 	{
-		if($id == Auth::user()->id){
+		if(Auth::user() && $id == Auth::user()->id){
 			return $this->index();
 		}
 		else{
@@ -68,11 +72,15 @@ class UserHomeController extends Controller {
 
 			$noteLists = $this->getNote($id);
 
+			$isFriend = $this->isFriend($id);
+
+
 			return view('user.viewuser')->withUser(User::find($id))
 										->withFriends($friendLists)
 										->with('ownedGroups',$ownedGroupLists)
 										->with('joinedGroups',$joinedGroupLists)
-										->withNotes($noteLists);
+										->withNotes($noteLists)
+										->with('isFriend',$isFriend);
 
 		}
 		
@@ -89,6 +97,13 @@ class UserHomeController extends Controller {
 		return Redirect::back();
 	}
 
+	private function isFriend($id){
+		if(UserFriend::where('userId','=',$id)->get())
+			return true;
+		else
+			return false;
+	}
+
 	/**
 	 * Get one's all friends.
 	 *
@@ -96,8 +111,8 @@ class UserHomeController extends Controller {
 	 * @return Response
 	 */
 	private function getFriend($id){
-		return $friendLists = DB::table('users')
-						->join('user_friends','user_friends.friendId','=','users.id')
+		return $friendLists = DB::table('user_friends')
+						->join('users','user_friends.friendId','=','users.id')
 						->where('user_friends.userId','=',$id)
 						->get();
 
@@ -146,6 +161,10 @@ class UserHomeController extends Controller {
 						->where('users.id','=',$id)
 						->get();
 
+	}
+
+	private function getMsg($id){
+		return ReceiverMsgBox::getMsg($id);
 	}
 
 	/**

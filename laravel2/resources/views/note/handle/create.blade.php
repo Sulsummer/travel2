@@ -1,18 +1,18 @@
-@extends ('layout.default')
+@extends ('layout.indexLayout3')
 
 @section ('content')
 	<div class="row">
 	<form method="post" action="{{ URL('note/handle') }}">
 		<input type="hidden" name="_token" value="{{ csrf_token() }}">
-		<div class="form-group">
+		<div>
 			<label>Title:</label>
 			<input type="text" class="form-control" name="noteTitle">
 		</div>
-		<div class="form-group">
+		<div>
 			<label>Content:</label>
-			<textarea class="form-control" required="required" rows="40" name="noteContent"></textarea>
+			<textarea required="required" name="noteContent" rows="30" cols="100" ></textarea>
 		</div>
-		<button type="submit" class="btn btn-success">Submit</button>
+		<button type="submit">Submit</button>
 	</form>
 	</div>
 
