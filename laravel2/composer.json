@@ -44,7 +44,7 @@
 		"preferred-install": "dist"
 	},	
 	 "repositories": [
-       	 	{"type": "composer","url": "http://packagist.cn"},
+       	 	{"type": "composer","url": "http://composer-proxy.jp/proxy/packagist"},
 		{"packagist": false}
    	]
 	
